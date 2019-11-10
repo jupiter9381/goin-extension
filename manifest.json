@@ -1,0 +1,50 @@
+{
+    "manifest_version": 2,
+    "name": "Goin helper",
+    "description": "Goin helper",
+    "version": "0.3",
+    "icons":
+    {
+        "128": "goin_icon.png"
+    },
+    "permissions": [
+        "https://www.lyft.com/*",
+        "https://app.goin.org/*",
+        "http://app.goin.org/*",
+        "https://dev.goin.org/*",
+        "http://dev.goin.org/*"
+    ],
+    "browser_action":
+    {
+        "default_icon": "goin_icon.png",
+        "default_title": "Goin helper"
+    },
+    "background":
+    {
+        "scripts": ["shared.js", "background.js"]
+    },
+    "content_scripts": [
+    {
+        "matches": ["https://www.lyft.com/*", "https://central.uber.com/*"],
+        "match_about_blank": true,
+        "js": [
+            "vendor/pnotify/PNotify.js", 
+            "vendor/pnotify/PNotifyButtons.js", 
+            "shared.js", 
+            "content_model.js"
+        ],
+        "run_at": "document_start",
+        "css": [
+            "vendor/pnotify/PNotifyBrightTheme.css"
+        ]
+    },
+    {
+        "matches": ["https://www.lyft.com/*"],
+        "js": ["content_lyft.js"]
+    },
+    {
+        "matches": ["https://central.uber.com/*"],
+        "js": ["content_uber.js"]
+    }
+]
+}
